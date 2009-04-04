@@ -1,0 +1,369 @@
+﻿package "net.exiva.twelveseconds"
+
+interface "{source}net/exiva/twelveseconds/Resources.java"
+events "{source}net/exiva/twelveseconds/Commands.java"
+
+#
+## Application Strings
+#
+string ID_APP_NAME "12seconds"
+string ID_APP_FLAGS "L"
+string ID_CHOOSER_CATEGORY "community-apps"
+string ID_APP_CLASS "net.exiva.twelveseconds.twelveseconds"
+string ID_VERSION "v@APP_VERSION_MAJOR@.@APP_VERSION_MINOR@/@APP_VERSION_BUILD@"
+string ID_VER "@APP_VERSION_MAJOR@.@APP_VERSION_MINOR@"
+string ID_BUILD "@APP_VERSION_BUILD@"
+string ID_LOCALE "en_US"
+string kRsrc_error "There was an error..."
+# 
+# #
+# ## Events
+# #
+# event EVENT_RECORDED
+
+#
+## Bitmaps
+#
+bitmap ID_LARGE_ICON "{base}LargeIcon.png"
+bitmap ID_SMALL_ICON "{base}SmallIcon.png"
+bitmap ID_MINI_ICON "{base}MiniIcon.png"
+bitmap ID_TITLE_ICON "{base}TitleIcon.png"
+bitmap ID_SPLASH_SCREEN "{base}SplashScreenTransparent.png"
+bitmap ID_ABOUT_IMAGE "{base}About.png"
+
+bitmap ID_RECORD_ENABLED "{base}control_record_enabled.png"
+bitmap ID_RECORD_DISABLED "{base}control_record_disabled.png"
+
+bitmap ID_SCREEN_RECORDING "{base}screen_recording.png"
+bitmap ID_SCREEN_STOPPED "{base}screen_stop.png"
+
+bitmap ID_SECONDS "{base}seconds.png"
+bitmap ID_12 "{base}12.png"
+bitmap ID_11 "{base}11.png"
+bitmap ID_10 "{base}10.png"
+bitmap ID_09 "{base}09.png"
+bitmap ID_08 "{base}08.png"
+bitmap ID_07 "{base}07.png"
+bitmap ID_06 "{base}06.png"
+bitmap ID_05 "{base}05.png"
+bitmap ID_04 "{base}04.png"
+bitmap ID_03 "{base}03.png"
+bitmap ID_02 "{base}02.png"
+bitmap ID_01 "{base}01.png"
+bitmap ID_00 "{base}00.png"
+
+bitmap ID_LOGO "{base}logo.png"
+
+#
+## Main Menu
+#
+menu ID_MAIN_MENU
+	menuItem
+		title = "Set Email"
+		id = vMenuSetup
+		event = EVENT_SETUP
+	divider
+	menuItem
+		title = "record it"
+		icon = ID_RECORD_ENABLED
+		id = vMenuRecord
+		event = EVENT_START_RECORDING
+		shortcut = rightShoulderButton
+	divider
+	menuItem
+		title = "post it"
+		event = EVENT_EMAIL
+		icon = mailIcon
+		shortcut = 'm'
+	divider
+	menuItem
+		title = "Tips"
+		event = EVENT_TIPS
+	menuItem
+		title = "Credits"
+		event = EVENT_ABOUT
+endMenu
+
+#
+## Login Screen Menu
+#
+menu ID_LOGIN_MENU
+	menuItem
+		title = "Login"
+		event = EVENT_STORE_LOGIN
+		shortcut = 'l'
+	menuItem
+		title = "Sign up"
+		event = EVENT_SIGN_UP
+		shortcut = 's'
+	divider
+	menuItem
+		title = "Tips"
+		event = EVENT_TIPS
+	menuItem
+		title = "Credits"
+		event = EVENT_ABOUT
+endMenu
+
+#
+## Post Error
+#
+alert ID_ERROR
+	title = ID_APP_NAME+" Error"
+	icon = cautionIcon
+	text = kRsrc_error
+endAlert
+
+#
+## Login Screen
+#
+screen ID_LOGIN_SCREEN
+	title = ID_APP_NAME
+	className = "net.exiva.twelveseconds.a"
+	icon = ID_TITLE_ICON
+	actionMenu = ID_LOGIN_MENU
+	backgroundColor = defaultPaneColor
+	image
+		id = LOGO
+		bitmap = ID_LOGO
+		alignWithParentTop = 10
+		centerHorizontally
+	roundRectContainer
+		id = ID_ROUND_CONTAINER
+		positionBelow = LOGO : 5
+		centerHorizontally
+		transparent
+		widthPct = 95
+		heightPct = 18
+		frameColor = 0x00FFFFFF
+		fillColor = defaultPaneColor
+	textField
+		id = ID_EMAIL
+		alignWithParentTop = 7 	
+		alignWithParentLeft = 46
+		fillToRight = 100
+		initialFocus
+	staticText
+		id = LBL_EMAIL
+		text = "Email:"
+		positionToLeft = ID_EMAIL : 5
+		transparent
+	staticText
+		id = LBL_12STV
+		text = "@12seconds.tv"
+		positionToRight = ID_EMAIL : 5
+		transparent
+	endRoundRectContainer
+	button
+		event = EVENT_STORE_LOGIN
+		id = ID_LOGIN_BUTTON
+		positionBelow = ID_ROUND_CONTAINER : 20
+		alignRight = ID_ROUND_CONTAINER
+		title = "Login"
+endScreen
+
+#
+## Recorder View
+#
+screen ID_MAIN_SCREEN
+	title = ID_APP_NAME
+	className = "net.exiva.twelveseconds.b"
+	icon = ID_TITLE_ICON
+	actionMenu = ID_MAIN_MENU
+	backgroundColor = 0x003c230d
+	image
+		bitmap = ID_SCREEN_RECORDING
+		id = vRecordIcon
+		top = 5
+		left = 5
+		invisible
+	image
+		bitmap = ID_SCREEN_STOPPED
+		id = vStoppedIcon
+		top = 5
+		left = 5
+	staticText
+		text = "Recording..."
+		id = vRecordText
+		justifyLeft
+		textColor = 0x00FF0000
+		transparent
+		textOutlineColor = 0x00FFFFFF
+		positionToRight = vRecordIcon : 3
+		invisible
+	staticText
+		text = "Stop"
+		id = vStoppedText
+		textColor = 0x00FFFFFF
+		justifyLeft
+		transparent
+		positionToRight = vRecordIcon : 3
+	button
+		event = EVENT_START_RECORDING
+		id = vRecordButton
+		title = "record it"
+		icon = ID_RECORD_ENABLED
+		disabledIcon = ID_RECORD_DISABLED
+		top = 180
+		left = 5
+	image
+		bitmap = ID_12
+		id = vSeconds_12
+		top = 180
+		right = 280
+	image
+		bitmap = ID_11
+		id = vSeconds_11
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_10
+		id = vSeconds_10
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_09
+		id = vSeconds_09
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_08
+		id = vSeconds_08
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_07
+		id = vSeconds_07
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_06
+		id = vSeconds_06
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_05
+		id = vSeconds_05
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_04
+		id = vSeconds_04
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_03
+		id = vSeconds_03
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_02
+		id = vSeconds_02
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_01
+		id = vSeconds_01
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_00
+		id = vSeconds_00
+		top = 180
+		right = 280
+		invisible
+	image
+		bitmap = ID_SECONDS
+		id = vSeconds
+		positionToRight = vSeconds_12 : 5
+endScreen
+
+
+#
+## Credits Alert
+#
+alert ID_ABOUT
+	title = "12seconds Credits"
+	icon = ID_ABOUT_IMAGE
+	text = "<html><small>" +
+		"<b>12seconds "+ID_VERSION+"</b><br>" +
+		"<b>Created By </b> Travis La Marr<br>" +
+		"<b>Powered By </b> 12seconds.tv<br>" +
+		"</html></small>"
+	systemDialog
+endAlert
+
+#
+## Welcome!
+#
+alert ID_WELCOME
+	title = "Welcome to 12seconds"
+	text = "Before continuing, You will need to have an account on 12seconds.tv. It's free to sign up, and you can do so from the device by pressing the Menu \uF007 key and selecting \"Create Account\". If you already have an account, simply login."
+endAlert
+
+
+#
+## Tips
+#
+dialog helpDialog
+	title = "12seconds Tips"
+	doneEvent = evtDone
+	doneIsDefault
+	widthPct = 90
+	scrollView
+		id = ID_HELP_SCROLLER
+		alignWithParentTop = 0
+		alignWithParentLeft = 0
+		widthPct = 100
+		height = 110
+		initialFocus
+
+		staticTextBox
+		id = ID_HELP_TEXT
+		alignWithParentTop = 0
+		alignWithParentLeft = 3
+		fillToRight = 0
+		doesNotHaveBorder
+		text =  "<html><b>Welcome to 12seconds!</b><br />" +
+				"We're totally happy to have you here!<br />" +
+				"<br /><strong>What is 12seconds</strong><br />" +
+				"12seconds is the best place online for video status updates. It's a super easy way to share what you're doing with your friends and family using short video clips. You can use your web cam or mobile phone. Show your friends where you are, share your thoughts, or tell them how you're doing.<br />" +
+				"<br /><strong>Why only 12 seconds?</strong><br />" +
+				"Because anything longer is boring. The scientists here at the 12seconds dodecaplex have conducted countless hours of research to determine the precise amount of time it takes for boredom or apathy to set in during typical Internet video viewing. Our patent pending Electro-Tear-Duct Prongers have determined that exactly 12 seconds of video is the ideal amount of time to keep anything interesting.<br />" +
+				"<br /><strong>Support</strong><br />" +
+				"If you require support for the 12seconds Application, contact support at <font color=\"blue\"><b>support@exiva.net</b></font> otherwise contact 12seconds at <font color=\"blue\">info@12seconds.tv</font></html>"
+	endScrollView
+endDialog
+
+
+#
+## Splash Screen
+#
+splashScreen ID_SPLASH_SCREEN_RESOURCE
+ @ IF {screen} = wqvga
+wqvgaSplashScreen
+@ ENDIF
+	image
+		bitmap = ID_SPLASH_SCREEN
+		alignWithParentLeft = 0
+		alignWithParentTop = 0
+	staticTextBox
+		text = ID_APP_NAME
+		id = ID_APP
+		alignWithParentLeft = 2
+		alignWithParentTop = 0
+		fillToRight = 2
+		transparent
+		doesNotHaveBorder
+endSplashScreen
